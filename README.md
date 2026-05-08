@@ -71,9 +71,11 @@ python3 main.py
 > - Fedora: `sudo dnf install python3-tkinter`
 > - Arch: `sudo pacman -S tk`
 
-## Standalone .exe build (csak Windows)
+## Standalone build
 
-A build PyInstallert használ és egyetlen `.exe` fájlt készít.
+A build PyInstallert használ. Az elkészült bináris mellé kerül a `stats.json` az első futtatáskor.
+
+### Windows (.exe)
 
 ```powershell
 # A venv aktiválása szükséges (pip install -r requirements.txt már lefutott)
@@ -82,7 +84,20 @@ A build PyInstallert használ és egyetlen `.exe` fájlt készít.
 
 Az elkészült fájl helye: `dist\SzoftverfejlesztesVizsgagyakarlo.exe`
 
-Az `.exe` mellé kerül a `stats.json` (statisztikák) az első futtatáskor.
+### macOS (standalone binary)
+
+```bash
+# A venv aktiválása szükséges (pip install -r requirements.txt már lefutott)
+chmod +x build.sh
+./build.sh
+```
+
+Az elkészült fájl helye: `dist/SzoftverfejlesztesVizsgagyakarlo`
+
+> **macOS megjegyzés:** Ha az app első indításakor az alábbi hibaüzenetet kapod:
+> *"cannot be opened because the developer cannot be verified"*
+> — nyisd meg a **System Settings → Privacy & Security** menüt, és kattints az **Open Anyway** gombra.
+> Parancssorból is megoldható: `xattr -cr dist/SzoftverfejlesztesVizsgagyakarlo`
 
 ## Projektstruktúra
 
@@ -96,6 +111,7 @@ exam_trainer/
 ├── stats_manager.py                 # Statisztikák mentése/betöltése
 ├── requirements.txt                 # Python függőségek
 ├── build.ps1                        # Windows .exe build szkript
+├── build.sh                         # macOS build szkript
 ├── SzoftverfejlesztesVizsgagyakarlo.spec  # PyInstaller spec
 ├── data/
 │   ├── questions.json               # Kérdésbank (360 kérdés)
@@ -113,4 +129,4 @@ exam_trainer/
 | Csomag | Verzió | Leírás |
 |---|---|---|
 | customtkinter | ≥ 5.2.2 | Modern dark-mode GUI keretrendszer |
-| pyinstaller | ≥ 6.0.0 | Standalone .exe build (opcionális) |
+| pyinstaller | ≥ 6.0.0 | Standalone build Windows/macOS (opcionális) |
