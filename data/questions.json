@@ -6159,5 +6159,290 @@
       0
     ],
     "explanation": "A Java SE 11 vezette be a var fenntartott típusnév használatát lambda paraméterekben: (var x, var y) -> x + y. Ez lehetővé teszi annotációk és módosítók alkalmazását lambda paraméterekre."
+  },
+  {
+    "id": 361,
+    "type": "single_choice",
+    "category": "Tesztelés",
+    "difficulty": "medium",
+    "question": "Mi a helyes láncolat a teszteléssel kapcsolatos szakkifejezések között?",
+    "answers": [
+      "Mistake (fejlesztői hiba) → Fault/Bug (hiba a kódban) → Failure (meghibásodás futásidőben)",
+      "Failure → Fault → Mistake",
+      "Bug → Error → Defect",
+      "Fault → Mistake → Failure"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "A láncolat: Mistake (a fejlesztő által elkövetett emberi hiba) → Fault/Bug/Defect (a hiba következménye a kódban) → Failure (a hiba aktiválódásakor bekövetkező helytelen viselkedés, amit a felhasználó tapasztal)."
+  },
+  {
+    "id": 362,
+    "type": "single_choice",
+    "category": "Tesztelés",
+    "difficulty": "medium",
+    "question": "Mit mond ki az ISTQB 'pesticide paradoxon' tesztelési alapelve?",
+    "answers": [
+      "Ha ugyanazokat a teszteket ismételjük, előbb-utóbb nem találnak új hibát – a teszteket rendszeresen frissíteni kell",
+      "A tesztelés mindig kimutatja az összes hibát, ha elegendő tesztet futtatunk",
+      "A tesztelés helyettesítheti a kódellenőrzést és a formális verifikációt",
+      "A több teszt mindig arányosan jobb hibafedettséget biztosít"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "Az ISTQB pesticide paradoxon: ha ugyanazokat a teszteket ismételjük, előbb-utóbb ezek a tesztek már nem találnak új hibát. A teszteket rendszeresen felül kell vizsgálni és frissíteni kell, hogy új hibákat is feltárjanak."
+  },
+  {
+    "id": 363,
+    "type": "true_false",
+    "category": "Tesztelés",
+    "difficulty": "easy",
+    "question": "Igaz vagy hamis: Az ISTQB alapelvei szerint kimerítő tesztelés (az összes lehetséges bemenet és feltétel kombinációjának tesztelése) elvégezhető valós szoftverrendszerekben.",
+    "answers": [
+      "Igaz",
+      "Hamis"
+    ],
+    "correct": [
+      1
+    ],
+    "explanation": "Hamis: A kimerítő tesztelés lehetetlen. Az összes lehetséges bemeneti kombináció tesztelése elvégezhetetlen a triviálisan egyszerű rendszerek kivételével. Ehelyett kockázatalapú prioritizálás és teszttechnikák alkalmazása szükséges."
+  },
+  {
+    "id": 364,
+    "type": "single_choice",
+    "category": "Tesztelés",
+    "difficulty": "medium",
+    "question": "Melyik tesztelési szinten ellenőrzik a teljes rendszer funkcionális és nem-funkcionális követelményeknek való megfelelését?",
+    "answers": [
+      "Rendszertesztelés (System Testing)",
+      "Egységtesztelés (Unit Testing)",
+      "Komponens integrációs tesztelés (Component Integration Testing)",
+      "Elfogadási tesztelés (Acceptance Testing)"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "A rendszertesztelés (System Testing) a teljes rendszer funkcionális és nem-funkcionális (pl. teljesítmény, biztonság) követelményeknek való megfelelését vizsgálja. Tipikus eszközök: Selenium, REST-assured. Elvégzője: tesztelő csapat."
+  },
+  {
+    "id": 365,
+    "type": "single_choice",
+    "category": "Design patterns",
+    "difficulty": "easy",
+    "question": "Mi az Object Pool tervezési minta célja?",
+    "answers": [
+      "Előre létrehozott, újrafelhasználható objektumok készletét tartja fenn drága objektumok (pl. adatbázis-kapcsolatok, szálak) esetén teljesítménynövelés céljából",
+      "Egy objektum egyetlen példányának biztosítása az egész alkalmazásban",
+      "Összetett objektumok lépésenkénti felépítése fluent API segítségével",
+      "Objektumok hierarchikus struktúrában való szervezése és egységes kezelése"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "Az Object Pool minta célja: előre létrehozott, újrafelhasználható objektumok készlete. Ha egy objektumra szükség van, a pool-ból vesszük ki (acquire); ha nem kell, visszatesszük (release). Drága objektumok (adatbázis-kapcsolatok, szálak) esetén jelentős teljesítménynövekedést eredményez."
+  },
+  {
+    "id": 366,
+    "type": "single_choice",
+    "category": "Design patterns",
+    "difficulty": "easy",
+    "question": "Melyik két metódus jellemzi az Object Pool tervezési minta interfészét?",
+    "answers": [
+      "acquire() (kivesz a pool-ból) és release() (visszatesz a pool-ba)",
+      "create() (létrehoz) és destroy() (töröl)",
+      "get() (lekér) és put() (eltárol)",
+      "open() (megnyit) és close() (lezár)"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "Az Object Pool jellemző metódusai: acquire() – kiveszi a következő elérhető objektumot a pool-ból (ha üres, kivételt dob vagy vár); release() – visszateszi a használt objektumot a pool-ba. Ezeket szinkronizálni kell többszálú környezetben (pl. synchronized kulcsszóval)."
+  },
+  {
+    "id": 367,
+    "type": "single_choice",
+    "category": "Design patterns",
+    "difficulty": "medium",
+    "question": "A Flyweight tervezési mintában mi a különbség az intrinsic (belső) és extrinsic (külső) állapot között?",
+    "answers": [
+      "Intrinsic: megosztott, objektumon belül tárolt közös állapot; extrinsic: egyedi állapot, amelyet a kliens ad át",
+      "Intrinsic: futásidőben változó állapot; extrinsic: fordítási időben rögzített állapot",
+      "Intrinsic: privát mezők; extrinsic: publikus mezők",
+      "Intrinsic: primitív típusú adatok; extrinsic: objektum típusú referenciák"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "A Flyweight minta memóriahatékony: az intrinsic (belső) állapotot a Flyweight objektum tárolja és megosztja a példányok között (pl. betűtípus neve, mérete). Az extrinsic (külső) állapot egyedi és klienstől kapott (pl. a szövegben elfoglalt pozíció). A Factory cache-eli a már létrehozott Flyweight-eket."
+  },
+  {
+    "id": 368,
+    "type": "single_choice",
+    "category": "Design patterns",
+    "difficulty": "medium",
+    "question": "Miért célszerű final módosítójú a Template Method tervezési mintában az algoritmusvázat tartalmazó metódus?",
+    "answers": [
+      "Hogy az alosztályok ne tudják felülírni az algoritmus sorrendjét – csak az egyes lépések (hook metódusok) implementációja változhat",
+      "Hogy a metódus statikusan hívható legyen osztálynéven keresztül is",
+      "Hogy a metódus ne legyen elérhető a csomagon kívülről",
+      "Hogy a metódus futása ne szakítható meg kivétellel"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "A Template Method mintában a sablon metódus (pl. prepare()) final módosítójú: rögzíti az algoritmus sorrendjét, amelyet az alosztályok nem bírálhatnak felül. Az egyes lépések (protected abstract vagy protected üres metódusok – 'hook'-ok) viszont alosztályokban implementálhatók/felülírhatók."
+  },
+  {
+    "id": 369,
+    "type": "single_choice",
+    "category": "Design patterns",
+    "difficulty": "easy",
+    "question": "Milyen két Java interfészt alkalmaz az Iterator tervezési minta Java-specifikus megvalósítása?",
+    "answers": [
+      "Iterable<T> (bejárhatóság jelzése, iterator() metódus) és Iterator<T> (hasNext() és next() metódusok)",
+      "Collection<T> és ListIterator<T>",
+      "Enumerable<T> és Enumerator<T>",
+      "Traversable<T> és Cursor<T>"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "Java-ban az Iterator minta: Iterable<T> interfész jelzi, hogy az objektum bejárható (tartalmaz egy iterator() metódust), Iterator<T> interfész adja a tényleges bejárási logikát (hasNext(), next()). Ha egy osztály Iterable<T>-t implementál, foreach ciklussal bejárható."
+  },
+  {
+    "id": 370,
+    "type": "single_choice",
+    "category": "Design patterns",
+    "difficulty": "medium",
+    "question": "Mi a spagetti kód antiminta, és hogyan kerülhető el guard clause-okkal?",
+    "answers": [
+      "Spagetti kód: mélyen egymásba ágyazott feltételek, nehezen követhető vezérlési folyam; guard clause: korai visszatérési feltételekkel lapossá teszi a struktúrát",
+      "Spagetti kód: goto utasításokat nem használó struktúrált kód; guard clause: goto-val valósítja meg a korai kilépést",
+      "Spagetti kód: túl sok osztályt és interfészt tartalmazó kód; guard clause: összevonja az osztályokat",
+      "Spagetti kód: kommentekbe írt programlogika; guard clause: kommenteket generáló annotáció"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "A spagetti kód antiminta: strukturálatlan, mélyen egymásba ágyazott feltételekkel teli, nehezen olvasható kód ('isten-metódusok', goto-szerű folyam). Guard clause megoldás: az egyes feltételeket inverzbe fordítva korai return utasításokkal szüntetjük meg a mélységet, lapossá (flat) téve a kódot."
+  },
+  {
+    "id": 371,
+    "type": "single_choice",
+    "category": "Design patterns",
+    "difficulty": "medium",
+    "question": "Mit mond ki a Java objektum-szerződés az equals() és hashCode() metódusok kapcsolatáról?",
+    "answers": [
+      "Ha a.equals(b) igaz, akkor a.hashCode() == b.hashCode() is igaz kell legyen",
+      "Ha a.hashCode() == b.hashCode(), akkor a.equals(b) is igaz kell legyen",
+      "Az equals() és hashCode() egymástól függetlenül felülírható – nincs kötelező kapcsolat",
+      "A hashCode() automatikusan konzisztenssé válik, ha az equals()-t felülírjuk"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "Java szerződés: ha a.equals(b) igaz, akkor a.hashCode() == b.hashCode() is igaz kell legyen. A fordítottja NEM igaz: azonos hashCode esetén az equals() lehet hamis is (hash ütközés). Ezért ha felülírjuk az equals()-t, mindig felül KELL írni a hashCode()-t is! Ajánlott: Objects.hash(mezők...)."
+  },
+  {
+    "id": 372,
+    "type": "code_reading",
+    "category": "Kódolvasás",
+    "difficulty": "medium",
+    "question": "Mit ír ki az alábbi Java kód?\n\npublic static void test() {\n    try {\n        System.out.println(\"try\");\n        int x = 1 / 0;\n        System.out.println(\"after\");\n    } catch (ArithmeticException e) {\n        System.out.println(\"catch\");\n    } finally {\n        System.out.println(\"finally\");\n    }\n}",
+    "answers": [
+      "try\ncatch\nfinally",
+      "try\nafter\nfinally",
+      "try\ncatch",
+      "try\nafter\ncatch\nfinally"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "1. 'try' kiírva. 2. 1/0 → ArithmeticException dobódik → 'after' NEM ír ki. 3. catch elkapja → 'catch' kiírva. 4. A finally MINDIG lefut (kivétel esetén is) → 'finally' kiírva. Végeredmény: try, catch, finally (három sor, ebben a sorrendben)."
+  },
+  {
+    "id": 373,
+    "type": "true_false",
+    "category": "Kódolvasás",
+    "difficulty": "easy",
+    "question": "Igaz vagy hamis: A Java try-with-resources blokk automatikusan lezárja az AutoCloseable erőforrásokat, még kivétel keletkezése esetén is, így a finally { reader.close(); } manuális hívás elhagyható.",
+    "answers": [
+      "Igaz",
+      "Hamis"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "Igaz: A try-with-resources (Java 7+) automatikusan meghívja az AutoCloseable/Closeable erőforrások close() metódusát a blokk elhagyásakor, akár volt kivétel, akár nem. Ezt a JVM szintetizálja, ekvivalens a try-catch-finally mintával, de tömörebb és biztonságosabb."
+  },
+  {
+    "id": 374,
+    "type": "single_choice",
+    "category": "Kódolvasás",
+    "difficulty": "medium",
+    "question": "Mi a helyes hierarchia egy JavaFX alkalmazás felépítésében?",
+    "answers": [
+      "Application → start(Stage) → Scene → Node (gyökér Node tartalmaz UI elemeket: Button, Label, Layout)",
+      "Node → Scene → Stage → Application",
+      "Application → Scene → Stage → Node",
+      "Stage → Application → Node → Scene"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "JavaFX hierarchia: Application (belépési pont, launch() hívja a start()-ot) → Stage (operációs rendszer ablaka, pl. primaryStage) → Scene (az ablak tartalma, egy gyökér Node-ot fogad) → Node (minden UI elem alapja: Button, Label, TextField, VBox, HBox, GridPane stb.)."
+  },
+  {
+    "id": 375,
+    "type": "single_choice",
+    "category": "Verziózás",
+    "difficulty": "medium",
+    "question": "Melyik állítás igaz a SemVer pre-release verziókra a verzió precedencia szabályai szerint?",
+    "answers": [
+      "A pre-release verzió kisebb, mint az azonos MAJOR.MINOR.PATCH számú stabil verzió (pl. 1.0.0-rc.1 < 1.0.0)",
+      "A pre-release verzió nagyobb, mint az azonos számú stabil verzió",
+      "A build metaadat (pl. +20260501) növeli a verzió precedenciáját",
+      "Az rc (release candidate) verzió egyenlő a stabil verzióval precedencia szempontból"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "SemVer szabály: pre-release verzió KISEBB precedenciájú, mint az azonos normál verzió. Pl. 1.0.0-alpha < 1.0.0-rc.1 < 1.0.0. A build metaadat (+build) IGNORÁLT a precedencia meghatározásakor. Pre-release tagek sorrendje: alpha < alpha.1 < alpha.beta < beta < rc.1."
+  },
+  {
+    "id": 376,
+    "type": "single_choice",
+    "category": "Verziózás",
+    "difficulty": "hard",
+    "question": "Mi a helyes növekvő SemVer precedencia sorrend az alábbi verziók között?",
+    "answers": [
+      "1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-beta < 1.0.0-rc.1 < 1.0.0 < 1.0.1 < 1.1.0 < 2.0.0",
+      "1.0.0 < 1.0.0-alpha < 1.0.0-beta < 1.0.0-rc.1 < 1.0.1 < 1.1.0 < 2.0.0",
+      "1.0.0-rc.1 < 1.0.0-beta < 1.0.0-alpha < 1.0.0 < 1.0.1 < 1.1.0 < 2.0.0",
+      "1.0.0-alpha < 1.0.0-beta < 1.0.0-rc.1 < 1.0.0 < 2.0.0 < 1.1.0 < 1.0.1"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "Helyes sorrend: pre-release verziók kisbetűs abc sorrendben és numerikusan, majd stabil, majd nagyobb PATCH, MINOR, MAJOR. Szabályok: MAJOR > MINOR > PATCH numerikusan; pre-release < stabil (azonos számoknál); numerikus tag < alfanumerikus tag (pl. 1.0.0-1 < 1.0.0-alpha)."
+  },
+  {
+    "id": 377,
+    "type": "single_choice",
+    "category": "Design patterns",
+    "difficulty": "medium",
+    "question": "Mi a különbség a sekély másolás (shallow copy) és a mély másolás (deep copy) között Java-ban?",
+    "answers": [
+      "Sekély másolásnál az új objektumban a belső referenciák megosztottak az eredetivel; mély másolásnál az összes belső objektum is lemásolódik – teljes függetlenség",
+      "Sekély másolásnál az összes adat lemásolódik; mély másolásnál csak a primitívek",
+      "Sekély másolás csak primitív mezőket; mély másolás csak objektum referenciákat másol",
+      "Sekély és mély másolás azonos: mindkettő teljesen független új objektumot hoz létre"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "Sekély másolás (shallow copy): új objektum jön létre, de a belső referencia mezők ugyanarra a memóriaterületre mutatnak, mint az original. Mély másolás (deep copy): új objektum ÉS az összes belső objektum is lemásolódik – az eredeti és a másolat teljesen független. Java-ban Object.clone() sekély másolatot készít alapból."
   }
 ]
