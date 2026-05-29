@@ -447,34 +447,34 @@
     "type": "single_choice",
     "category": "Design patterns",
     "difficulty": "medium",
-    "question": "Melyik tervezési minta biztosítja, hogy egy osztályból csak egyetlen példány jöjjön létre?",
+    "question": "Mi a Facade tervezési minta célja?",
     "answers": [
-      "Factory Method",
-      "Builder",
-      "Singleton",
-      "Prototype"
+      "Egyetlen osztályból csak egyetlen példányt enged létrehozni az alkalmazás teljes életciklusa alatt",
+      "Egy bonyolult alrendszert egyszerűsített, egységes interfészen keresztül tesz elérhetővé, elrejtve a belső összetettséget",
+      "Dinamikusan ad hozzá felelősségeket egy objektumhoz öröklés nélkül",
+      "Inkompatibilis interfészek között kompatibilitást teremt csomagoló osztállyal"
     ],
     "correct": [
-      2
+      1
     ],
-    "explanation": "Singleton minta: biztosítja, hogy egy osztályból csak egyetlen példány jöjjön létre, és globális hozzáférést biztosít ehhez. Jellemzői: privát konstruktor, statikus getInstance() metódus. Tipikus alkalmazások: Logger, konfigurációs objektum, adatbázis-kapcsolat."
+    "explanation": "A Facade (GoF Szerkezeti minta) egyszerűsített interfészt nyújt egy összetett alrendszerhez. A kliens a Facade-on keresztül használja az alrendszert, nem kell ismernie a belső komponenseket és kapcsolataikat. Pl. komplex könyvtár egyetlen belépési osztálya. Csökkenti a csatolást és egyszerűsíti a kliens kódot."
   },
   {
     "id": 28,
     "type": "single_choice",
     "category": "Design patterns",
     "difficulty": "medium",
-    "question": "Melyik tervezési minta kategóriába tartozik az Observer minta?",
+    "question": "Mi a Proxy tervezési minta célja, és miben különbözik az Adapter mintától?",
     "answers": [
-      "Létrehozási (Creational)",
-      "Szerkezeti (Structural)",
-      "Viselkedési (Behavioral)",
-      "Architekturális (Architectural)"
+      "Proxy: ugyanolyan interfészt biztosít, mint az eredeti objektum, de hozzáadott logikával (pl. lazy init, hozzáférés-ellenőrzés); Adapter: eltérő interfészeket kompatibilissé tesz",
+      "Proxy: örökléssel valósítja meg az interfészt; Adapter: kompozícióval",
+      "Proxy és Adapter azonos – mindkettő inkompatibilis interfészek összekapcsolására szolgál",
+      "Proxy: futásidőben cserélhető algoritmus; Adapter: statikus interfész-átalakítás"
     ],
     "correct": [
-      2
+      0
     ],
-    "explanation": "Az Observer viselkedési (Behavioral) minta. Egy-a-többhöz függőséget definiál: ha egy Subject állapota megváltozik, az összes Observer automatikusan értesül. Viselkedési minták: Observer, Template Method, Iterator, Strategy, Command, State."
+    "explanation": "Proxy (GoF Szerkezeti minta): ugyanolyan interfészt nyújt, mint az eredeti (valódi) objektum, de közvetítőként működik – pl. lazy initialization (virtuális proxy), hozzáférés-ellenőrzés (védelmi proxy), hálózati hívás (remote proxy), naplózás (naplózó proxy). Adapter ezzel szemben eltérő interfészeket egyeztet össze – más a kimeneti interfész."
   },
   {
     "id": 29,
@@ -2591,18 +2591,20 @@
   },
   {
     "id": 153,
-    "type": "true_false",
+    "type": "single_choice",
     "category": "Tiszta kód",
-    "difficulty": "easy",
-    "question": "Igaz-e, hogy a tiszta kód elvei szerint a kommentek mindig jobbá teszik a kódot, ezért minél több komment, annál jobb?",
+    "difficulty": "medium",
+    "question": "Mi a 'mágikus szám' (magic number) problémája a tiszta kód elvek szerint, és hogyan kerülhető el?",
     "answers": [
-      "Igaz",
-      "Hamis"
+      "A mágikus számok futásidőben véletlenszerűen változó értékek; elkerülésük: minden számot változóba kell kötni",
+      "Névtelen numerikus literálok a kódban, amelyek kontextus nélkül érthetetlenek; elkerülés: nevesített konstansokba (static final) kiemelés",
+      "Túl nagy egész szám literálok, amelyek túlcsordulást okozhatnak; kerüld el a long típus explicit használatával",
+      "Véletlenszám-generátorok kimenetei, amelyeket nem szabad közvetlenül feltételekbe írni"
     ],
     "correct": [
       1
     ],
-    "explanation": "Hamis. A clean code elvek szerint a legjobb komment az, amelyik nem szükséges, mert a kód magáért beszél. A kommentek hazudhatnak (nem frissítik őket), ezért előnyben kell részesíteni az önmagyarázó kódot. Vannak hasznos kommentek (jogi, szándék magyarázat, TODO), de a felesleges komment inkább árthat."
+    "explanation": "Magic number: névtelen numerikus literál a kódban, pl. if (status == 4) vagy for (int i = 0; i < 86400; i++). A '4' vagy '86400' értelmezéséhez az olvasónak tudnia kell a kontextust. Megoldás: static final int CANCELLED = 4; vagy static final int SECONDS_PER_DAY = 86400; – az önleíró névvel a kód dokumentálja önmagát."
   },
   {
     "id": 154,
@@ -2692,17 +2694,17 @@
     "type": "single_choice",
     "category": "Tiszta kód",
     "difficulty": "medium",
-    "question": "Mit jelent a 'Boy Scout Rule' a tiszta kód kontextusában?",
+    "question": "Mit jelent a 'Divergent Change' (eltérő irányú változás) kódszag, és miben különbözik a 'Shotgun Surgery'-től?",
     "answers": [
-      "Csak juniorok írhatnak kódot a projektben, a senior fejlesztők kizárólag code review-t végeznek és architektúrát terveznek",
-      "Mindig hagyd a kódot tisztábban, mint ahogy találtad – ha valamit módosítasz, javíts meg egy kis dolgot a környéken is",
-      "A kódot minden héten teljesen újra kell írni (rewrite), hogy friss maradjon és elkerüljük a technical debt felhalmozódását",
-      "Mindig dokumentáld az általad módosított kódrészleteket egy kommentben: dátum, módosítás oka és a fejlesztő neve kötelező"
+      "Divergent Change: egy osztály egyetlen okból változik, sok helyen; Shotgun Surgery: sok osztály változik egyetlen okból – az előbbi kohézió-, az utóbbi csatolás-probléma",
+      "Divergent Change: egy osztály sok különböző okból változik (kohézió-probléma); Shotgun Surgery: egyetlen változtatás sok osztályt érint (csatolás-probléma) – mindkettő rossz jel",
+      "Divergent Change: metódusok felesleges duplikációja; Shotgun Surgery: osztályok felesleges duplikációja",
+      "Divergent Change és Shotgun Surgery ugyanaz a kódszag, csak más névvel"
     ],
     "correct": [
       1
     ],
-    "explanation": "Boy Scout Rule (Robert C. Martin): 'Leave the campground cleaner than you found it.' Nem kell óriási refaktorálást végezni – elég egy változót átnevezni, egy hosszú függvényt kettébontani, egy duplikációt eltüntetni. Ezek a kis lépések összeadódva tartják a kódbázist egészségesen."
+    "explanation": "Divergent Change: egyetlen osztály sok különböző okból kénytelen változni – ez kohézióhiányt jelez (az osztálynak túl sok felelőssége van, SRP-megsértés). Shotgun Surgery: egyetlen logikai változtatás sok különböző osztályt/fájlt érint egyszerre – ez szoros csatolást (tight coupling) jelez. Mindkettő rossz, de ellentétes irányból: Divergent = egy osztály, sok ok; Shotgun = sok osztály, egy ok."
   },
   {
     "id": 160,
