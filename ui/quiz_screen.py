@@ -10,6 +10,24 @@ from config import (
 )
 from models import Question
 
+def _bind_wrap(label: ctk.CTkLabel) -> None:
+    """Bind a CTkLabel so its wraplength tracks its actual width.
+
+    Uses a mutable closure to remember the last processed width, preventing
+    the Configure-feedback loop (wraplength change → height change → Configure
+    → wraplength change → ...).
+    """
+    state = {"w": -1}
+
+    def _on_configure(event, lbl=label, s=state) -> None:
+        if event.width == s["w"]:
+            return
+        s["w"] = event.width
+        lbl.configure(wraplength=max(100, event.width - 10))
+
+    label.bind("<Configure>", _on_configure)
+
+
 # Colours used for answer feedback
 _CLR_DEFAULT  = "#2b2b3b"   # unselected answer button
 _CLR_SELECTED = "#1f538d"   # selected (before submit)
@@ -26,6 +44,7 @@ class _AnswerBtnWidget(ctk.CTkFrame):
         super().__init__(parent, fg_color=_CLR_DEFAULT, corner_radius=8)
         self._cb = command
         self._base_color = _CLR_DEFAULT
+        self._last_w: int = -1  # track last width to avoid Configure feedback loop
 
         self._lbl = ctk.CTkLabel(
             self,
@@ -38,18 +57,21 @@ class _AnswerBtnWidget(ctk.CTkFrame):
         )
         self._lbl.pack(fill="both", expand=True, padx=14, pady=12)
 
-        # Update wraplength whenever the label is resized
-        self._lbl.bind("<Configure>", self._on_label_resize)
+        # Bind to the FRAME's resize (not the label's) – avoids feedback loop:
+        # changing wraplength changes label height, not frame width.
+        self.bind("<Configure>", self._on_frame_resize)
 
         for w in (self, self._lbl):
             w.bind("<Button-1>", lambda _e: self._cb())
             w.bind("<Enter>",    lambda _e: self._on_enter())
             w.bind("<Leave>",    lambda _e: self._on_leave())
 
-    def _on_label_resize(self, event) -> None:
-        new_wrap = max(100, event.width - 28)
-        if self._lbl.cget("wraplength") != new_wrap:
-            self._lbl.configure(wraplength=new_wrap)
+    def _on_frame_resize(self, event) -> None:
+        # Only react when THIS frame's width actually changes
+        if event.widget is not self or event.width == self._last_w:
+            return
+        self._last_w = event.width
+        self._lbl.configure(wraplength=max(100, event.width - 28))
 
     def _on_enter(self) -> None:
         ctk.CTkFrame.configure(self, fg_color=_CLR_HOVER)
@@ -310,10 +332,7 @@ class QuizScreen(ctk.CTkFrame):
             anchor="w",
         )
         self._explanation_label.pack(fill="x", pady=(12, 4))
-        self._explanation_label.bind(
-            "<Configure>",
-            lambda e: self._explanation_label.configure(wraplength=max(100, e.width - 10))  # type: ignore[union-attr]
-        )
+        _bind_wrap(self._explanation_label)
 
     # ------------------------------------------------------------------
     # Question text renderer (detects embedded code blocks)
@@ -340,7 +359,7 @@ class QuizScreen(ctk.CTkFrame):
                     anchor="w",
                 )
                 lbl.pack(fill="x", pady=(4, 6))
-                lbl.bind("<Configure>", lambda e, l=lbl: l.configure(wraplength=max(100, e.width - 10)))
+                _bind_wrap(lbl)
             block = create_code_block(self._content_frame, code)
             block.pack(fill="x", pady=(0, 14))
         else:
@@ -353,7 +372,7 @@ class QuizScreen(ctk.CTkFrame):
                 anchor="w",
             )
             lbl.pack(fill="x", pady=(4, 14))
-            lbl.bind("<Configure>", lambda e, l=lbl: l.configure(wraplength=max(100, e.width - 10)))
+            _bind_wrap(lbl)
 
     # ------------------------------------------------------------------
     # Answer selection
