@@ -36,12 +36,12 @@ WARNING_COLOR   = "#d68910"
 TEXT_SECONDARY  = "#a0a0b0"
 
 # --- Fonts ---
-FONT_TITLE    = ("Segoe UI", 32, "bold")
-FONT_SUBTITLE = ("Segoe UI", 19)
-FONT_BODY     = ("Segoe UI", 15)
-FONT_SMALL    = ("Segoe UI", 13)
-FONT_BUTTON   = ("Segoe UI", 15, "bold")
-FONT_CODE     = ("Consolas", 13)
+FONT_TITLE    = ("Segoe UI", 36, "bold")
+FONT_SUBTITLE = ("Segoe UI", 22)
+FONT_BODY     = ("Segoe UI", 18)
+FONT_SMALL    = ("Segoe UI", 15)
+FONT_BUTTON   = ("Segoe UI", 16, "bold")
+FONT_CODE     = ("Consolas", 14)
 
 # --- Quiz modes ---
 QUIZ_MODES = {

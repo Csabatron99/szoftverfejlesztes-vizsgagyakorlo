@@ -20,9 +20,9 @@ _CLR_HOVER    = "#3a3a5a"   # hover (unsubmitted)
 
 
 class _AnswerBtnWidget(ctk.CTkFrame):
-    """Frame+Label answer button that supports automatic text wrapping."""
+    """Frame+Label answer button with dynamic text wrapping on resize."""
 
-    def __init__(self, parent, text: str, command, font, wraplength: int = 980):
+    def __init__(self, parent, text: str, command, font):
         super().__init__(parent, fg_color=_CLR_DEFAULT, corner_radius=8)
         self._cb = command
         self._base_color = _CLR_DEFAULT
@@ -34,14 +34,22 @@ class _AnswerBtnWidget(ctk.CTkFrame):
             fg_color="transparent",
             anchor="w",
             justify="left",
-            wraplength=wraplength,
+            wraplength=800,
         )
-        self._lbl.pack(fill="both", expand=True, padx=14, pady=10)
+        self._lbl.pack(fill="both", expand=True, padx=14, pady=12)
+
+        # Update wraplength whenever the label is resized
+        self._lbl.bind("<Configure>", self._on_label_resize)
 
         for w in (self, self._lbl):
             w.bind("<Button-1>", lambda _e: self._cb())
             w.bind("<Enter>",    lambda _e: self._on_enter())
             w.bind("<Leave>",    lambda _e: self._on_leave())
+
+    def _on_label_resize(self, event) -> None:
+        new_wrap = max(100, event.width - 28)
+        if self._lbl.cget("wraplength") != new_wrap:
+            self._lbl.configure(wraplength=new_wrap)
 
     def _on_enter(self) -> None:
         ctk.CTkFrame.configure(self, fg_color=_CLR_HOVER)
@@ -297,11 +305,15 @@ class QuizScreen(ctk.CTkFrame):
             text="",
             font=FONT_SMALL,
             text_color=TEXT_SECONDARY,
-            wraplength=1000,
+            wraplength=800,
             justify="left",
             anchor="w",
         )
         self._explanation_label.pack(fill="x", pady=(12, 4))
+        self._explanation_label.bind(
+            "<Configure>",
+            lambda e: self._explanation_label.configure(wraplength=max(100, e.width - 10))  # type: ignore[union-attr]
+        )
 
     # ------------------------------------------------------------------
     # Question text renderer (detects embedded code blocks)
@@ -319,25 +331,29 @@ class QuizScreen(ctk.CTkFrame):
         if "\n\n" in text:
             prose, code = text.split("\n\n", 1)
             if prose:
-                ctk.CTkLabel(
+                lbl = ctk.CTkLabel(
                     self._content_frame,
                     text=prose,
                     font=FONT_BODY,
-                    wraplength=1000,
+                    wraplength=800,
                     justify="left",
                     anchor="w",
-                ).pack(fill="x", pady=(4, 6))
+                )
+                lbl.pack(fill="x", pady=(4, 6))
+                lbl.bind("<Configure>", lambda e, l=lbl: l.configure(wraplength=max(100, e.width - 10)))
             block = create_code_block(self._content_frame, code)
             block.pack(fill="x", pady=(0, 14))
         else:
-            ctk.CTkLabel(
+            lbl = ctk.CTkLabel(
                 self._content_frame,
                 text=text,
                 font=FONT_BODY,
-                wraplength=1000,
+                wraplength=800,
                 justify="left",
                 anchor="w",
-            ).pack(fill="x", pady=(4, 14))
+            )
+            lbl.pack(fill="x", pady=(4, 14))
+            lbl.bind("<Configure>", lambda e, l=lbl: l.configure(wraplength=max(100, e.width - 10)))
 
     # ------------------------------------------------------------------
     # Answer selection
