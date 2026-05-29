@@ -20,7 +20,7 @@ class ExamTrainerApp(ctk.CTk):
 
         self.title(APP_TITLE)
         self.geometry(f"{APP_WIDTH}x{APP_HEIGHT}")
-        self.minsize(800, 600)
+        self.minsize(900, 680)
         self._center_window()
 
         # Managers

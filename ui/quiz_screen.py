@@ -16,6 +16,45 @@ _CLR_SELECTED = "#1f538d"   # selected (before submit)
 _CLR_CORRECT  = "#2d8a4e"   # correct answer (after submit)
 _CLR_WRONG    = "#c0392b"   # wrong selected answer (after submit)
 _CLR_MISSED   = "#1a5c35"   # correct answer the user didn't select
+_CLR_HOVER    = "#3a3a5a"   # hover (unsubmitted)
+
+
+class _AnswerBtnWidget(ctk.CTkFrame):
+    """Frame+Label answer button that supports automatic text wrapping."""
+
+    def __init__(self, parent, text: str, command, font, wraplength: int = 980):
+        super().__init__(parent, fg_color=_CLR_DEFAULT, corner_radius=8)
+        self._cb = command
+        self._base_color = _CLR_DEFAULT
+
+        self._lbl = ctk.CTkLabel(
+            self,
+            text=text,
+            font=font,
+            fg_color="transparent",
+            anchor="w",
+            justify="left",
+            wraplength=wraplength,
+        )
+        self._lbl.pack(fill="both", expand=True, padx=14, pady=10)
+
+        for w in (self, self._lbl):
+            w.bind("<Button-1>", lambda _e: self._cb())
+            w.bind("<Enter>",    lambda _e: self._on_enter())
+            w.bind("<Leave>",    lambda _e: self._on_leave())
+
+    def _on_enter(self) -> None:
+        ctk.CTkFrame.configure(self, fg_color=_CLR_HOVER)
+
+    def _on_leave(self) -> None:
+        ctk.CTkFrame.configure(self, fg_color=self._base_color)
+
+    def configure(self, **kwargs) -> None:  # type: ignore[override]
+        if "fg_color" in kwargs:
+            self._base_color = kwargs["fg_color"]
+            ctk.CTkFrame.configure(self, fg_color=kwargs.pop("fg_color"))
+        if kwargs:
+            ctk.CTkFrame.configure(self, **kwargs)
 
 
 class QuizScreen(ctk.CTkFrame):
@@ -37,7 +76,7 @@ class QuizScreen(ctk.CTkFrame):
         self._results: list[dict] = []     # one entry per answered question
 
         # Widget references updated each question
-        self._answer_btns: list[ctk.CTkButton] = []
+        self._answer_btns: list[_AnswerBtnWidget] = []
         self._explanation_label: ctk.CTkLabel | None = None
         self._check_btn: ctk.CTkButton | None = None
         self._next_btn: ctk.CTkButton | None = None
@@ -243,16 +282,10 @@ class QuizScreen(ctk.CTkFrame):
         # ── Answer buttons ─────────────────────────────────────────────
         for i, ans_text in enumerate(q.answers):
             prefix = ["A)", "B)", "C)", "D)", "E)"][i] if len(q.answers) > 2 else ["✔", "✘"][i]
-            btn = ctk.CTkButton(
+            btn = _AnswerBtnWidget(
                 self._content_frame,
                 text=f"  {prefix}  {ans_text}",
-                width=860,
-                height=46,
                 font=FONT_BODY,
-                fg_color=_CLR_DEFAULT,
-                hover_color="#3a3a5a",
-                corner_radius=8,
-                anchor="w",
                 command=lambda idx=i: self._toggle_answer(idx),
             )
             btn.pack(fill="x", pady=3)
@@ -264,7 +297,7 @@ class QuizScreen(ctk.CTkFrame):
             text="",
             font=FONT_SMALL,
             text_color=TEXT_SECONDARY,
-            wraplength=860,
+            wraplength=1000,
             justify="left",
             anchor="w",
         )
@@ -290,7 +323,7 @@ class QuizScreen(ctk.CTkFrame):
                     self._content_frame,
                     text=prose,
                     font=FONT_BODY,
-                    wraplength=860,
+                    wraplength=1000,
                     justify="left",
                     anchor="w",
                 ).pack(fill="x", pady=(4, 6))
@@ -301,7 +334,7 @@ class QuizScreen(ctk.CTkFrame):
                 self._content_frame,
                 text=text,
                 font=FONT_BODY,
-                wraplength=860,
+                wraplength=1000,
                 justify="left",
                 anchor="w",
             ).pack(fill="x", pady=(4, 14))

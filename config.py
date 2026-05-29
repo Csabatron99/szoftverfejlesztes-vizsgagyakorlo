@@ -20,8 +20,8 @@ def _user_data_dir() -> str:
 
 # --- App ---
 APP_TITLE = "Szoftverfejlesztés Vizsgagyakorló"
-APP_WIDTH = 1000
-APP_HEIGHT = 700
+APP_WIDTH = 1150
+APP_HEIGHT = 800
 
 # --- customtkinter ---
 APPEARANCE_MODE = "dark"
@@ -36,12 +36,12 @@ WARNING_COLOR   = "#d68910"
 TEXT_SECONDARY  = "#a0a0b0"
 
 # --- Fonts ---
-FONT_TITLE    = ("Segoe UI", 28, "bold")
-FONT_SUBTITLE = ("Segoe UI", 16)
-FONT_BODY     = ("Segoe UI", 13)
-FONT_SMALL    = ("Segoe UI", 11)
-FONT_BUTTON   = ("Segoe UI", 13, "bold")
-FONT_CODE     = ("Consolas", 12)
+FONT_TITLE    = ("Segoe UI", 32, "bold")
+FONT_SUBTITLE = ("Segoe UI", 19)
+FONT_BODY     = ("Segoe UI", 15)
+FONT_SMALL    = ("Segoe UI", 13)
+FONT_BUTTON   = ("Segoe UI", 15, "bold")
+FONT_CODE     = ("Consolas", 13)
 
 # --- Quiz modes ---
 QUIZ_MODES = {
