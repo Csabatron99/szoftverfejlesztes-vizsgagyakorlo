@@ -10,22 +10,22 @@ from config import (
 )
 from models import Question
 
-def _bind_wrap(label: ctk.CTkLabel) -> None:
-    """Bind a CTkLabel so its wraplength tracks its actual width.
+def _bind_wrap(label: ctk.CTkLabel, parent: ctk.CTkBaseClass) -> None:
+    """Track the parent frame's width and keep the label's wraplength in sync.
 
-    Uses a mutable closure to remember the last processed width, preventing
-    the Configure-feedback loop (wraplength change → height change → Configure
-    → wraplength change → ...).
+    Binding to the PARENT (not the label itself) breaks the feedback loop:
+    changing wraplength only affects the label's height, never the parent's
+    width, so <Configure> on the parent cannot be triggered by our own update.
     """
     state = {"w": -1}
 
-    def _on_configure(event, lbl=label, s=state) -> None:
-        if event.width == s["w"]:
+    def _on_parent_resize(event, lbl=label, s=state, p=parent) -> None:
+        if event.widget is not p or event.width == s["w"]:
             return
         s["w"] = event.width
         lbl.configure(wraplength=max(100, event.width - 10))
 
-    label.bind("<Configure>", _on_configure)
+    parent.bind("<Configure>", _on_parent_resize, add="+")
 
 
 # Colours used for answer feedback
@@ -332,7 +332,7 @@ class QuizScreen(ctk.CTkFrame):
             anchor="w",
         )
         self._explanation_label.pack(fill="x", pady=(12, 4))
-        _bind_wrap(self._explanation_label)
+        _bind_wrap(self._explanation_label, self._content_frame)
 
     # ------------------------------------------------------------------
     # Question text renderer (detects embedded code blocks)
@@ -359,7 +359,7 @@ class QuizScreen(ctk.CTkFrame):
                     anchor="w",
                 )
                 lbl.pack(fill="x", pady=(4, 6))
-                _bind_wrap(lbl)
+                _bind_wrap(lbl, self._content_frame)
             block = create_code_block(self._content_frame, code)
             block.pack(fill="x", pady=(0, 14))
         else:
@@ -372,7 +372,7 @@ class QuizScreen(ctk.CTkFrame):
                 anchor="w",
             )
             lbl.pack(fill="x", pady=(4, 14))
-            _bind_wrap(lbl)
+            _bind_wrap(lbl, self._content_frame)
 
     # ------------------------------------------------------------------
     # Answer selection
