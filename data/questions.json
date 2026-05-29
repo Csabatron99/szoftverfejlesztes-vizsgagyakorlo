@@ -6446,5 +6446,107 @@
       0
     ],
     "explanation": "Sekély másolás (shallow copy): új objektum jön létre, de a belső referencia mezők ugyanarra a memóriaterületre mutatnak, mint az original. Mély másolás (deep copy): új objektum ÉS az összes belső objektum is lemásolódik – az eredeti és a másolat teljesen független. Java-ban Object.clone() sekély másolatot készít alapból."
+  },
+  {
+    "id": 378,
+    "type": "single_choice",
+    "category": "UML",
+    "difficulty": "easy",
+    "question": "Melyik UML kapcsolatot ábrázolja az alábbi osztálydiagram részlet?\n\n┌───────────┐                  ┌───────────┐\n│  Circle   │ ────────────────▷│   Shape   │\n└───────────┘                  └───────────┘",
+    "answers": [
+      "Öröklés (generalizáció): Circle kiterjeszti Shape-et – folytonos vonal, üres háromszög fej a szülő oldalán",
+      "Kompozíció: Circle tartalmazza Shape-et erős egész-rész kapcsolatban",
+      "Aggregáció: Circle gyengén függ Shape-től, az életciklusok egymástól függetlenek",
+      "Függőség: Circle csak paraméterként vagy lokálisan használja Shape-et"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "Folytonos vonal + üres (kitöltetlen) háromszög fej = öröklés / generalizáció. A nyíl az alosztálytól (Circle) az ősösztály (Shape) felé mutat. Olvasata: 'Circle IS-A Shape' – Circle kiterjeszti Shape-et. Java-ban: class Circle extends Shape. Az üres háromszög megkülönbözteti a szaggatott vonalú + üres háromszögtől, ami realizáció lenne."
+  },
+  {
+    "id": 379,
+    "type": "single_choice",
+    "category": "UML",
+    "difficulty": "easy",
+    "question": "Melyik UML kapcsolatot ábrázolja az alábbi osztálydiagram részlet?\n\n┌───────────┐                  ┌──────────────────┐\n│  Person   │ · · · · · · · ·▷│  «interface»     │\n└───────────┘                  │  Serializable    │\n                               └──────────────────┘",
+    "answers": [
+      "Realizáció (megvalósítás): Person implementálja a Serializable interfészt – szaggatott vonal, üres háromszög fej",
+      "Öröklés (generalizáció): Person kiterjeszti a Serializable osztályt – folytonos vonal, üres háromszög fej",
+      "Aggregáció: Person gyengén tartalmaz egy Serializable típusú objektumot",
+      "Függőség: Person csak metódus visszatérési értékként használja a Serializable-t"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "Szaggatott (pontozott) vonal + üres háromszög fej = realizáció / megvalósítás. Az osztály (Person) implementál egy interfészt (Serializable). Java-ban: class Person implements Serializable. Különbség az örökléstől: öröklés = folytonos vonal + üres háromszög; realizáció = szaggatott vonal + üres háromszög."
+  },
+  {
+    "id": 380,
+    "type": "single_choice",
+    "category": "UML",
+    "difficulty": "medium",
+    "question": "Melyik UML kapcsolatot ábrázolja az alábbi osztálydiagram részlet?\n\n┌─────────┐ ◆───────────────── ┌──────────┐\n│  House  │ 1            1..* │   Room   │\n└─────────┘                   └──────────┘",
+    "answers": [
+      "Kompozíció: House 'tartalmazza' Room-ot, a szoba nem létezhet a ház nélkül – teli (kitöltött) rombusz a ház oldalán",
+      "Aggregáció: House gyengén tartalmazza Room-ot, a szoba a háztól függetlenül is létezhet – üres rombusz",
+      "Öröklés: Room kiterjeszti House-t – House a szülőosztály",
+      "Asszociáció: általános 'ismeri' kapcsolat, életciklusok teljesen függetlenek"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "Teli (kitöltött, fekete) rombusz ◆ = kompozíció (erős egész-rész). A rész (Room) nem létezhet az egész (House) nélkül – ha a ház megszűnik, a szobák is megszűnnek. A multiplicitás: 1 ház tartalmaz 1 vagy több szobát (1..*). Fontos: a rombusz az 'egész' oldalán (House) van, nem a 'rész' oldalán."
+  },
+  {
+    "id": 381,
+    "type": "single_choice",
+    "category": "UML",
+    "difficulty": "medium",
+    "question": "Melyik UML kapcsolatot ábrázolja az alábbi osztálydiagram részlet?\n\n┌──────────────┐ ◇──────────── ┌──────────┐\n│  Department  │ 1           * │ Employee │\n└──────────────┘              └──────────┘",
+    "answers": [
+      "Aggregáció: Department gyengén tartalmazza Employee-t, az alkalmazott a részleg megszűnése után is létezhet – üres rombusz",
+      "Kompozíció: Department tartalmazza Employee-t, az alkalmazott nem létezhet a részleg nélkül – teli rombusz",
+      "Öröklés: Employee kiterjeszti Department-et",
+      "Függőség: Department metódushívás szintjén használja Employee-t"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "Üres (kitöltetlen) rombusz ◇ = aggregáció (gyenge egész-rész). A rész (Employee) önállóan is létezhet az egész (Department) nélkül – ha a részleg megszűnik, az alkalmazott nem feltétlenül szűnik meg (pl. más részlegbe kerül). Multiplicitás: 1 részleghez 0 vagy több alkalmazott tartozhat (*). Különbség a kompozíciótól: üres ◇ vs. teli ◆ rombusz."
+  },
+  {
+    "id": 382,
+    "type": "single_choice",
+    "category": "UML",
+    "difficulty": "medium",
+    "question": "Melyik UML kapcsolatot ábrázolja az alábbi osztálydiagram részlet?\n\n┌──────────────┐               ┌─────────┐\n│ OrderService │ - - - - - - ► │  Order  │\n└──────────────┘               └─────────┘",
+    "answers": [
+      "Függőség (dependency): OrderService felhasznál Order-t (pl. metódusparaméterként) – szaggatott nyíl, NEM háromszög fej",
+      "Asszociáció: OrderService hosszú távon 'ismeri' Order-t, példányváltozóként tárolja",
+      "Realizáció: OrderService implementálja az Order interfészt",
+      "Öröklés: OrderService kiterjeszti Order-t"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "Szaggatott nyíl + normál nyíl fej (NEM üres háromszög) = függőség (dependency). A leggyengébb kapcsolat: OrderService 'használja' Order-t (pl. lokális változóként, metódus paraméterként vagy visszatérési értékként), de nem tárolja hosszú távon. Ha Order megváltozik, OrderService-t is módosítani kell. Különbség a realizációtól: realizáció = szaggatott + ÜRES HÁROMSZÖG fej (▷), függőség = szaggatott + egyszerű nyíl fej (►)."
+  },
+  {
+    "id": 383,
+    "type": "single_choice",
+    "category": "UML",
+    "difficulty": "hard",
+    "question": "Az alábbi osztálydiagramon két kapcsolat látható (A és B jelöléssel). Mi a különbség a két kapcsolat között?\n\nKAPCSOLAT (A):\n┌─────────┐ ◆──────────── ┌──────────┐\n│  House  │ 1        1..* │   Room   │\n└─────────┘               └──────────┘\n\nKAPCSOLAT (B):\n┌──────────────┐ ◇──────── ┌──────────┐\n│  Department  │ 1       * │ Employee │\n└──────────────┘           └──────────┘",
+    "answers": [
+      "(A) kompozíció – a rész (Room) nem létezhet az egész (House) nélkül, teli rombusz ◆; (B) aggregáció – a rész (Employee) önállóan is létezhet, üres rombusz ◇",
+      "(A) aggregáció – gyenge kapcsolat, üres rombusz; (B) kompozíció – erős kapcsolat, teli rombusz",
+      "(A) és (B) azonos – mindkettő kompozíció, a rombusz kitöltöttsége csak vizuális konvenció, nem jelent szemantikai különbséget",
+      "(A) öröklés – Room kiterjeszti House-t; (B) asszociáció – Employee 'ismeri' Department-et"
+    ],
+    "correct": [
+      0
+    ],
+    "explanation": "Teli rombusz ◆ = kompozíció (erős egész-rész): a rész nem létezhet az egész nélkül. Ha a House megszűnik, a Room-ok is megszűnnek. Üres rombusz ◇ = aggregáció (gyenge egész-rész): a rész önállóan is létezhet. Ha a Department megszűnik, az Employee-k más osztályba kerülhetnek. Összefoglalás: ◆ erős életciklus-függés, ◇ gyenge életciklus-függés. Mindkettőnél a rombusz az 'egész' osztálynál van (nem a 'résznél')."
   }
 ]
